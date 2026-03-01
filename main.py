@@ -1,70 +1,121 @@
-class Present:
-    def __init__(self, name, roll_no):
-        self.name = name
-        self.roll_no = roll_no
-        self.present_report = []
-        print("New Student Added\n")
+import json
 
-    def student_present(self, date):
-        if date not in self.present_report:
-            self.present_report.append(date)
-            print(f"{self.name} is registered present on [{date}]\n")
+FILE_NAME = "students.json"
 
-        else:
-            print(f"{self.name} is already registered present on [{date}]\n")
+# ---------------- LOAD DATA ---------------- #
 
-    def view_report(self):
-        if len(self.present_report) == 0:
-            print(f"{self.name} has no attendance records yet.\n")
-        else:
-            print(f"{self.name} was present on: {self.present_report}\n")
+def load_data():
+    try:
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
-students = {}
+# ---------------- SAVE DATA ---------------- #
+
+def save_data(data):
+    with open(FILE_NAME, "w") as file:
+        json.dump(data, file, indent=4)
+
+# Load existing data
+students = load_data()
+
+# ---------------- MAIN PROGRAM ---------------- #
+
 while True:
-    print("1. Add student\n2. View Report\n3. Add Presenty\n4. Exit\n")
+
+    print("\n1. Add student")
+    print("2. View report")
+    print("3. Add Presenty")
+    print("4. Exit")
 
     try:
-        choice = int(input("Enter your choice: "))
+        choice = int(input("Select task: "))
     except ValueError:
-        print("Please enter a valid number.\n")
+        print("Invalid input. Please enter a number.")
         continue
 
-    if choice == 1:
-        student_id = input("Enter Student ID: ")
-        if student_id in students:
-            print("Student ID already exists!\n")
-            continue
-        try:
-            name = str(input("Enter name: "))
-        except ValueError:
-            print("Name must be a string.\n")
-            continue
-        try:
-            roll_no = int(input("Enter roll no: "))
-        except ValueError:
-            print("Enter a valid roll number in integer\n")
+    # ---------------- ADD STUDENT ---------------- #
 
-        student = Present(name,roll_no)
-        students[student_id] = student
+    if choice == 1:
+
+        student_id = input("Enter student ID: ").strip()
+
+        if not student_id:
+            print("Student ID cannot be empty.")
+            continue
+
+        if student_id in students:
+            print(f"Student with ID {student_id} already exists.")
+            continue
+
+        name = input("Enter student name (Lastname Firstname Middlename): ").strip()
+
+        if not name:
+            print("Name cannot be empty.")
+            continue
+
+        try:
+            roll_no = int(input("Enter student roll number: "))
+        except ValueError:
+            print("Roll number must be an integer.")
+            continue
+
+        students[student_id] = {
+            "name": name,
+            "roll_no": roll_no,
+            "presenty": []
+        }
+
+        save_data(students)
+        print("Student added successfully.")
+
+    # ---------------- VIEW REPORT ---------------- #
 
     elif choice == 2:
-        student_id = input("Enter the ID of student: ")
+
+        student_id = input("Enter student ID: ").strip()
+
         if student_id in students:
-            students[student_id].view_report()
+            attendance = students[student_id]["presenty"]
+            name = students[student_id]["name"]
+
+            if not attendance:
+                print(f"No attendance records found for {name}.")
+            else:
+                print(f"Attendance record of {name}:")
+                for date in attendance:
+                    print("-", date)
         else:
-            print("Student not found.\n")
+            print(f"Student with ID {student_id} not found.")
+
+    # ---------------- ADD PRESENTY ---------------- #
 
     elif choice == 3:
-        student_id = input("Enter the ID of student: ")
+
+        student_id = input("Enter student ID: ").strip()
+
         if student_id in students:
-            date = input("Enter the date (YYYY-MM-DD): ")
-            students[student_id].student_present(date)
+            date = input("Enter date (DD-MM-YYYY): ").strip()
+
+            if not date:
+                print("Date cannot be empty.")
+                continue
+
+            if date not in students[student_id]["presenty"]:
+                students[student_id]["presenty"].append(date)
+                save_data(students)
+                print("Attendance marked successfully.")
+            else:
+                print("Attendance already marked for this date.")
         else:
-            print("Student not found.\n")
+            print(f"Student with ID {student_id} not found.")
+
+    # ---------------- EXIT ---------------- #
 
     elif choice == 4:
-        print("Exiting program...\n")
+        print("Exiting the program.")
         break
 
     else:
-        print("Invalid choice. Try again.\n")
+        print("Invalid choice. Please select a valid option.")
