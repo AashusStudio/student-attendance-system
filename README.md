@@ -49,7 +49,7 @@ Example JSON structure:
 ```json
 {
     "aashish01": {
-        "name": "Choudhary Aashish Mangilal",
+        "name": "Kohli Virat Prem",
         "roll_no": 1,
         "presenty": [
             "02-03-2026"
