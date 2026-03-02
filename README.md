@@ -95,17 +95,6 @@ This project helped in understanding:
 
 ---
 
-## 📈 Future Improvements
-
-- Attendance percentage calculation
-- Delete student functionality
-- Automatic current date detection
-- Export attendance to CSV
-- Convert into GUI or Web App
-- Add unit testing
-
----
-
 ## 👨‍💻 Author
 
 Aashish  
