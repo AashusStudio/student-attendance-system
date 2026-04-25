@@ -39,7 +39,7 @@ while True:
 
     if choice == 1:
 
-        student_id = input("Enter student ID: ").strip()
+        student_id = input("Create student ID: ").strip().lower()
 
         if not student_id:
             print("Student ID cannot be empty.")
@@ -74,7 +74,7 @@ while True:
 
     elif choice == 2:
 
-        student_id = input("Enter student ID: ").strip()
+        student_id = input("Enter student ID: ").strip().lower()
 
         if student_id in students:
             attendance = students[student_id]["presenty"]
@@ -93,7 +93,7 @@ while True:
 
     elif choice == 3:
 
-        student_id = input("Enter student ID: ").strip()
+        student_id = input("Enter student ID: ").strip().lower()
 
         if student_id in students:
             date = input("Enter date (DD-MM-YYYY): ").strip()
