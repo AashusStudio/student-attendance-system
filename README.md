@@ -65,7 +65,7 @@ student-attendance-system/
 
 **1. Clone the repository:**
 ```bash
-git clone [https://github.com/AashusStudio/student-attendance-system.git](https://github.com/AashusStudio/student-attendance-system.git)
+git clone https://github.com/AashusStudio/student-attendance-system.git
 ```
 
 **2. Navigate into the project directory:**
