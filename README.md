@@ -91,14 +91,6 @@ Developing this project provided hands-on experience with:
 
 ---
 
-## 👨‍💻 Author
-
-**Ashish Mangilal Choudhary**  
-Aspiring Cybersecurity Professional & Software Developer  
-GitHub: [@AashusStudio](https://github.com/AashusStudio)
-
----
-
 ## 📄 License
 
 This project is open-source and available for educational purposes. Feel free to fork, modify, and learn from the code!
